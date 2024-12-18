@@ -1,0 +1,7 @@
+.env
+.vscode
+.idea
+logging.log
+wallets.txt
+node_modules/
+wallets_*.txt
