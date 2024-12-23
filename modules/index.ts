@@ -3,7 +3,7 @@ import {makeAvatar} from "./avatar";
 import {projectConfig} from "../data/project.config";
 import {log} from "../utils/logger";
 import {IProxy} from "../utils/wallet";
-import {makePlantPotato} from "./potato";
+import {claimPotato, makePlantPotato} from "./potato";
 
 
 async function runModule(walletProxyMap: { [wallet: string]: IProxy | boolean  }, callback: (wallets: { [wallet: string]: IProxy | boolean  }) => Promise<void>): Promise<void> {
@@ -54,6 +54,9 @@ async function index(): Promise<void> {
             break;
         case "plant_potato":
             await runModule(walletProxyMap, makePlantPotato);
+            break;
+        case "claim_potato":
+            await runModule(walletProxyMap, claimPotato);
             break;
         case "exit":
             log("info", "\n🤑 Donate me: \nEVM: 0x00000b0ddce0bfda4531542ad1f2f5fad7b9cde9\nBTC: bc1p0mhv0d3ywqja49gnzhusxmxxkzhn4zhew6k6z4rn0gjcytluhkhq3uhq5z");

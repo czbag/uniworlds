@@ -21,7 +21,11 @@ export async function menu() {
                     value: "plant_potato",
                 },
                 {
-                    name: "3) Exit",
+                    name: "3) Claim potato",
+                    value: "claim_potato",
+                },
+                {
+                    name: "4) Exit",
                     value: "exit",
                 },
             ],

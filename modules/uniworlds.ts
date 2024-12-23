@@ -74,6 +74,29 @@ export async function makePlant(address: string, session: string, turnstile: str
 }
 
 
+export async function makeClaim(address: string, session: string, proxy: IProxy | boolean, attempts: number = 0) {
+    try {
+        const response = await axios.post(
+            "https://alpha-api.satworld.io/temp-avatar/claim-potato",
+            {},
+            {
+                httpsAgent: getProxy(proxy),
+                httpAgent: getProxy(proxy),
+                headers: {"session": session, "address": address, "avatarversion": "v0.3.2"}
+            }
+        );
+        return response.data
+    } catch (error) {
+        if (attempts < projectConfig.retryCount) {
+            log("error", `Attempt [${attempts + 1}/${projectConfig.retryCount}] failed: ${(error as Error).message}. Retrying...`);
+            return makeClaim(address, session, proxy, attempts + 1);
+        } else {
+            log("error", `Failed to claim potato [${attempts + 1}/${projectConfig.retryCount}] attempts.`);
+        }
+    }
+}
+
+
 export async function addAvatar(address: string, session: string, content: string, proxy: IProxy | boolean, attempts: number = 0) {
     try {
         const response = await axios.post(
